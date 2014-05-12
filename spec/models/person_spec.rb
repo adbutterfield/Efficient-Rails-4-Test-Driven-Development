@@ -35,11 +35,11 @@ describe Person do
   end
 
   it "saves correctly" do
-    person = FactoryGirl.create(:person, :first_name => "fn", :middle_name => nil, :last_name => "ln")
+    person = FactoryGirl.create(:person, :first_name => "first", :middle_name => nil, :last_name => "last")
     Person.count.should == 1
-    person.first_name.should == "fn"
+    person.first_name.should == "first"
     person.middle_name.should == nil
-    person.last_name.should == "ln"
+    person.last_name.should == "last"
   end
 
   it "can have many addresses" do
