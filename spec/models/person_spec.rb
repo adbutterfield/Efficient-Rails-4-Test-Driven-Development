@@ -49,4 +49,15 @@ describe Person do
     end
     person.addresses.count.should == 2
   end
+
+  context "search" do
+    it "should find a person by partial match of first or last name" do
+      john = FactoryGirl.create(:person, :first_name => "John", :last_name => "Smith")
+      peter = FactoryGirl.create(:person, :first_name => "Peter", :last_name => "Johnson")
+      sally = FactoryGirl.create(:person, :first_name => "Sally", :last_name => "Smith")
+
+      Person.order(id: :asc).should == [john, peter, sally]
+      Person.find_by_names_starting_with("Joh").should == [peter, john]
+    end
+  end
 end
