@@ -15,12 +15,16 @@ Test pattern for model validations:
   end 
 
   How to check for validation errors syntax from Rails Guides
-    Person.new.errors[:name].any?
-    Person.create.errors[:name].any?
+    Person.new.errors[:attribute].any?
+    Person.create.errors[:attribute].any?
+
+  Other error checking syntax
+    .errors[:attribute].should_not include("can't be blank")
+    .errors[:attribute].should_not be_any
 
 
 Test pattern for model callbacks (like before_save hooks):
-  - Set up an object with an undesireable state or attribute
+  - Set up an object with an undesirable state or attribute
   - Trigger the callback
   - Check for change to desired state or attribute
 
@@ -49,7 +53,7 @@ Test pattern for associations:
   - Checking one side of the association is good enough
   - Use additional tests, if using options (like order)
 
-  Example"
+  Example:
     it "should respond to association with has_many relationship" do
       object = Model.new
       object.should respond_to(:association)
