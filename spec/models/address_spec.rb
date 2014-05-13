@@ -6,9 +6,6 @@ describe Address do
     # can also run should be_kind_of(Address)
   end
 
-  # before do 
-  #   p = FactoryGirl.create(:person)
-  # end  
   context "Validations" do
     [:street, :city, :zipcode].each do |attr|
       it "must have a #{attr}" do
