@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512034628) do
+ActiveRecord::Schema.define(version: 20140513040747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,19 @@ ActiveRecord::Schema.define(version: 20140512034628) do
   end
 
   add_index "addresses", ["person_id"], name: "index_addresses_on_person_id", using: :btree
+
+  create_table "messages", force: true do |t|
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "read_at"
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["recipient_id"], name: "index_messages_on_recipient_id", using: :btree
+  add_index "messages", ["sender_id"], name: "index_messages_on_sender_id", using: :btree
 
   create_table "people", force: true do |t|
     t.string   "first_name"
