@@ -42,10 +42,22 @@ describe Person do
   end
 
   describe "Associations" do
-    [:addresses, :messages].each do |attr|
-      it "can have many #{attr}" do 
-        FactoryGirl.build(:person).should respond_to(attr)
+    it "can have many addresses" do
+      person = FactoryGirl.create(:person)
+      person.should respond_to(:addresses)
+      2.times do
+        FactoryGirl.create(:address, :person_id => person.id)
       end
+      person.addresses.count.should == 2
+    end
+
+    it "can have many messages" do
+      person = FactoryGirl.create(:person)
+      person.should respond_to(:messages)
+      2.times do
+        FactoryGirl.create(:message, :recipient_id => person.id)
+      end
+      person.messages.count.should == 2
     end
   end
 
