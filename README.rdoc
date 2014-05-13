@@ -1,28 +1,69 @@
-== README
+Test pattern for model validations:
+  - Instantiate an object with an invalid property
+  - Check that the object is not valid
+  - Check for errors on the correct attribute for the test
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+  Example:
+  it "requires X" do 
+    n = Model.new
+    n.should_not be_valid
+    n.errors.on(:X).should_not be_nil
+  end 
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  How to check for validation errors syntax from Rails Guides
+    Person.new.errors[:name].any?
+    Person.create.errors[:name].any?
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Test pattern for model callbacks (like before_save hooks):
+  - Set up an object with an undesireable state or attribute
+  - Trigger the callback
+  - Check for change to desired state or attribute
+
+  Example:
+  it "should change undesired state to desired state before save" do
+    n = Model.new(:attribute => "undesired state")
+    n.save
+    n.attribute.should == "desired state"
+  end
+
+Test pattern for custom finders: 
+  - Create the smallest non-trivial dataset
+  - Verify that the dataset is non-trivial
+  - Run the finder
+  - Verify that the results include the correct subset of data
+
+  Example:
+    it "retrieves objects with names containing a query string" do
+      @objects = [Factory.create(...), Factory.create(...), ...]
+      Model.all.should == @objects
+      Model.custom_finder("query string").should == [array of matching objects from @objects]
+    end  
+
+Test pattern for associations:
+  - Check that the associations are present with respond_to
+  - Checking one side of the association is good enough
+  - Use additional tests, if using options (like order)
+
+  Example"
+    it "should respond to association with has_many relationship" do
+      object = Model.new
+      object.should respond_to(:association)
+    end  
+
+Test pattern for associations with options:
+  - Create the smallest non-trivial dataset
+  - Verify that the dataset is non-trivial
+  - Run the association with options
+  - Verify that the results are correct
+
+  Example: 
+    it "sorts associated_objects by sort_attribute" do
+      object = Model.new
+      second = Factory.create(:associated_model, foreign_key: object.id, sort_attribute: "second")
+      first = Factory.create(:associated_model, foreign_key: object.id, sort_attribute: "first")
+      AssociatedModel.all.should == [second, first]
+      object.associated_model.should == [first, second]
+      object.should respond_to(:associated_model)
+    end
+
