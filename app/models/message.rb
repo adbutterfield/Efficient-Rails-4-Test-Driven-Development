@@ -3,4 +3,7 @@ class Message < ActiveRecord::Base
   belongs_to :recipient, class_name: "Person", foreign_key: "recipient_id"
 
   validates :subject, :body, :sender, :recipient, presence: true
+
+  scope :unread_messages, -> { where(read_at: nil) }
+  
 end

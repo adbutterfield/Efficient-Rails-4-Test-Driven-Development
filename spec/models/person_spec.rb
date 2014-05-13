@@ -61,6 +61,14 @@ describe Person do
     end
   end
 
+  it "should retreive all the un-read messages" do
+    person = FactoryGirl.create(:person)
+    FactoryGirl.create(:message, :recipient_id => person.id)
+    FactoryGirl.create(:message, :recipient_id => person.id, :read_at => Time.now)
+    person.messages.count.should == 2
+    person.messages.unread_messages.count.should == 1
+  end
+
   context "search" do
     it "should find a person by partial match of first or last name" do
       john = FactoryGirl.create(:person, :first_name => "John", :last_name => "Smith")
