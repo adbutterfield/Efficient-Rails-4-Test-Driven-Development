@@ -5,7 +5,7 @@ describe Person do
     FactoryGirl.create(:person).should be_valid
   end
 
-  context "Validations" do
+  describe "Validations" do
     [:first_name, :last_name].each do |attr|
       it "must have a #{attr}" do
         FactoryGirl.build(:person, attr => nil).should_not be_valid
