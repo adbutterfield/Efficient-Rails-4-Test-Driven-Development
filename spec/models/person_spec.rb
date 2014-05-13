@@ -41,13 +41,12 @@ describe Person do
     person.last_name.should == "last"
   end
 
-  it "can have many addresses" do
-    person = FactoryGirl.create(:person)
-    person.should respond_to(:addresses)
-    2.times do 
-      FactoryGirl.create(:address, :person_id => person.id)
+  describe "Associations" do
+    [:addresses, :messages].each do |attr|
+      it "can have many #{attr}" do 
+        FactoryGirl.build(:person).should respond_to(attr)
+      end
     end
-    person.addresses.count.should == 2
   end
 
   context "search" do
