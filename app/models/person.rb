@@ -3,10 +3,10 @@ class Person < ActiveRecord::Base
   validates :last_name, presence: true
 
   has_many :addresses
-  has_many :messages
+  has_many :messages, foreign_key: :recipient_id
 
   scope :find_by_names_starting_with, -> (term) { where("first_name LIKE :term OR last_name LIKE :term", {term: term << '%' }).order(last_name: :asc) }
-
+  
   def full_name
     if self.middle_name.nil?
       return "#{self.first_name} #{self.last_name}"
