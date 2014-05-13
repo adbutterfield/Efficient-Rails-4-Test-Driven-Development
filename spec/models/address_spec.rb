@@ -6,7 +6,7 @@ describe Address do
     # can also run should be_kind_of(Address)
   end
 
-  context "Validations" do
+  describe "Validations" do
     [:street, :city, :zipcode].each do |attr|
       it "must have a #{attr}" do
         FactoryGirl.build(:address, attr => nil).should_not be_valid
