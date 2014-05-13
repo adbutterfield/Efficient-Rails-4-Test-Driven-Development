@@ -7,10 +7,16 @@ describe Address do
   end
 
   describe "Validations" do
-    [:street, :city, :zipcode].each do |attr|
+    [:street, :city, :zipcode, :state].each do |attr|
       it "must have a #{attr}" do
         FactoryGirl.build(:address, attr => nil).should_not be_valid
       end
+    end
+
+    it "only accepts a :state as valid if it's two letters long" do
+      FactoryGirl.build(:address, :state => "a").should_not be_valid
+      FactoryGirl.build(:address, :state => "ab").should be_valid
+      FactoryGirl.build(:address, :state => "abc").should_not be_valid
     end
   end
 
