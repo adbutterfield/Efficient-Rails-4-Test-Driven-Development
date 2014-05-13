@@ -5,24 +5,23 @@ describe Person do
     FactoryGirl.create(:person).should be_valid
   end
 
-  it "must have a first_name" do
-    FactoryGirl.build(:person, :first_name => nil).should_not be_valid
-  end
+  context "Validations" do
+    [:first_name, :last_name].each do |attr|
+      it "must have a #{attr}" do
+        FactoryGirl.build(:person, attr => nil).should_not be_valid
+      end
+    end
 
-  it "must have a last_name" do
-    FactoryGirl.build(:person, :last_name => nil).should_not be_valid
-  end
+    it "isn't required to have a middle name" do 
+      person = FactoryGirl.build(:person, :middle_name => nil)
+      person.should be_valid
+      person.errors[:middle_name].should_not be_any
+    end
 
-  it "isn't required to have a middle name" do 
-    FactoryGirl.build(:person, :middle_name => nil).should be_valid
-    # p.errors[:middle_name].should_not include("can't be blank")
-    # p.errors.on(:middle_name).should_not be_nil
-
-  end
-
-  it "can have a middle name" do 
-    FactoryGirl.create(:person).should be_valid
-  end
+    it "can have a middle name" do 
+      FactoryGirl.create(:person).should be_valid
+    end
+  end  
 
   it "can construct full name from first_name and last_name if middle_name is nil" do
     person = FactoryGirl.build(:person, :middle_name => nil)
@@ -44,6 +43,7 @@ describe Person do
 
   it "can have many addresses" do
     person = FactoryGirl.create(:person)
+    person.should respond_to(:addresses)
     2.times do 
       FactoryGirl.create(:address, :person_id => person.id)
     end
