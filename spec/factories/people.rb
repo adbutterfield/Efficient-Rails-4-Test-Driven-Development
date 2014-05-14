@@ -2,7 +2,7 @@
 require 'faker'
 
 FactoryGirl.define do
-  factory :person, :aliases => [:sender, :recipient, :customer] do |f|
+  factory :person, :aliases => [:sender, :recipient] do |f|
     f.first_name { Faker::Name.first_name }
     f.middle_name { Faker::Name.first_name }
     f.last_name { Faker::Name.last_name }
