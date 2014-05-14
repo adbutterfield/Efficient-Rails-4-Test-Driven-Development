@@ -1,8 +1,9 @@
 class Person < ActiveRecord::Base
-  validates :first_name, :last_name, presence: true
-
   has_many :addresses
+  has_many :orders
   has_many :messages, foreign_key: :recipient_id
+  
+  validates :first_name, :last_name, presence: true
 
   scope :find_by_names_starting_with, -> (term) { where("first_name LIKE :term OR last_name LIKE :term", {term: term << '%' }).order(last_name: :asc) }
 
