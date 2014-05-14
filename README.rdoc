@@ -1,6 +1,6 @@
-This is an updated version of Wolfram Arnold's Efficient Rails Test Driven Development tutorial, on YouTube.
+This is a TTD project based off of Wolfram Arnold's Efficient Rails Test Driven Development tutorial on YouTube. 
 
-In addition to using Rails 4 syntax (as opposed to Rails 2 in the original), the common test patterns are listed below.
+In addition to using Rails 4 syntax (as opposed to Rails 2 in the original), I added some different tests, took a different approach here and there, and collected the common test patterns, which are listed below.
 
 Test pattern for model validations:
   - Instantiate an object with an invalid property
