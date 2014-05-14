@@ -12,4 +12,15 @@ describe Item do
       end
     end
   end
+
+  it "can retreive a list of items ordered by number sold" do
+    item1 = FactoryGirl.create(:item)
+    item2 = FactoryGirl.create(:item)
+    item3 = FactoryGirl.create(:item)
+    FactoryGirl.create(:order, :items => [item1, item2, item3])
+    FactoryGirl.create(:order, :items => [item1, item2])
+    FactoryGirl.create(:order, :items => [item1])
+
+    Item.by_popularity.should == [item1, item2, item3]
+  end
 end
