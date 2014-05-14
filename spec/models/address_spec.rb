@@ -32,13 +32,3 @@ describe Address do
     end
   end
 end
-
-# Homework
-
-# - A customer is a person in the database
-# - An order can consist of many items
-# - An order requires a customer and at least one item
-
-# - Given a person, be able to find all the items they bought
-# - The system can retreive a list of the most ordered items
-# - Loyalty program, retreive a list of customers that have ordered two or more items in the last 90 days
