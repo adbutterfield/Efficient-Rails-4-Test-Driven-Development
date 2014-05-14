@@ -18,7 +18,7 @@ Test pattern for model validations:
     Person.new.errors[:attribute].any?
     Person.create.errors[:attribute].any?
 
-  Other error checking syntax
+  RSpec error checking syntax
     .errors[:attribute].should_not include("can't be blank")
     .errors[:attribute].should_not be_any
 
