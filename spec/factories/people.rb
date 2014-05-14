@@ -7,4 +7,8 @@ FactoryGirl.define do
     f.middle_name { Faker::Name.first_name }
     f.last_name { Faker::Name.last_name }
   end
+
+  trait :is_customer do 
+    type "Customer"
+  end
 end

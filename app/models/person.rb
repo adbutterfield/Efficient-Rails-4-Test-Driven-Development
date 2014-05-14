@@ -1,11 +1,11 @@
 class Person < ActiveRecord::Base
   has_many :addresses
-  has_many :orders
   has_many :messages, foreign_key: :recipient_id
   
   validates :first_name, :last_name, presence: true
 
   scope :find_by_names_starting_with, -> (term) { where("first_name LIKE :term OR last_name LIKE :term", {term: term << '%' }).order(last_name: :asc) }
+  scope :customers, -> { where(type: 'Customer') }
 
   def full_name
     if self.middle_name.nil?
@@ -13,6 +13,10 @@ class Person < ActiveRecord::Base
     else
       return "#{self.first_name} #{self.middle_name} #{self.last_name}"
     end  
+  end
+
+  def ordered_items
+    Item.includes(:orders).where('orders.customer_id = ?', self.id).references(:orders)
   end
 
   private

@@ -39,6 +39,7 @@ describe Person do
     person.first_name.should == "first"
     person.middle_name.should == nil
     person.last_name.should == "last"
+    person.type.should == nil
   end
 
   describe "Associations" do
