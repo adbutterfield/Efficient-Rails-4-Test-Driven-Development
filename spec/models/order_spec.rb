@@ -28,5 +28,4 @@ end
 
 # Homework
 
-# - The system can retreive a list of the most ordered items
 # - Loyalty program, retreive a list of customers that have ordered two or more items in the last 90 days

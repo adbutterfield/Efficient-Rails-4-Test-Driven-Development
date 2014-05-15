@@ -14,7 +14,7 @@ describe Customer do
   end
 
   context "given a customer" do
-    it "should be able to find all the items they bought" do
+    it "should retrieve all the items they bought" do
       customer = FactoryGirl.create(:customer, :is_customer)
       2.times do
         FactoryGirl.create(:order, :customer_id => customer.id)
@@ -22,4 +22,11 @@ describe Customer do
       customer.ordered_items.count.should == 4
     end
   end
+
+  # context "within last 90 days" do
+  #   it "should retrieve the customers who bought 2 or more items for loyalty program"
+      
+
+  #   end
+  # end
 end

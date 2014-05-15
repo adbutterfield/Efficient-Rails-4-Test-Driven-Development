@@ -17,10 +17,10 @@ describe Item do
     item1 = FactoryGirl.create(:item)
     item2 = FactoryGirl.create(:item)
     item3 = FactoryGirl.create(:item)
-    FactoryGirl.create(:order, :items => [item1, item2, item3])
-    FactoryGirl.create(:order, :items => [item1, item2])
-    FactoryGirl.create(:order, :items => [item1])
+    FactoryGirl.create(:order, :items => [item2, item3, item1])
+    FactoryGirl.create(:order, :items => [item2, item3])
+    FactoryGirl.create(:order, :items => [item2])
 
-    Item.by_popularity.should == [item1, item2, item3]
+    Item.by_popularity.should == [item2, item3, item1]
   end
 end
