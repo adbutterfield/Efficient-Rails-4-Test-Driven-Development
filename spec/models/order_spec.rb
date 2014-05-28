@@ -25,7 +25,3 @@ describe Order do
     end
   end
 end
-
-# Homework
-
-# - Loyalty program, retreive a list of customers that have ordered two or more items in the last 90 days
