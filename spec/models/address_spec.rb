@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe Address do
   it "should have a vaild factory" do 
-    FactoryGirl.create(:address).should be_valid
-    # can also run should be_kind_of(Address)
+    address = FactoryGirl.create(:address)
+    address.should be_valid
+    address.should be_kind_of(Address)
   end
 
   describe "Validations" do
