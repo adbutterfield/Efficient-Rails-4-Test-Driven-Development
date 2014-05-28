@@ -1,10 +1,15 @@
 class Person < ActiveRecord::Base
   has_many :addresses
   has_many :messages, foreign_key: :recipient_id
+  has_many :orders, foreign_key: :customer_id
+  has_many :items_orders, through: :orders
   
   validates :first_name, :last_name, presence: true
 
-  scope :find_by_names_starting_with, -> (term) { where("first_name LIKE :term OR last_name LIKE :term", {term: term << '%' }).order(last_name: :asc) }
+  scope :find_by_names_starting_with, -> (term) { 
+      where("first_name LIKE :term OR last_name LIKE :term", {term: term << '%' }).
+      order(last_name: :asc) 
+    }
   scope :customers, -> { where(type: 'Customer') }
 
   def full_name
